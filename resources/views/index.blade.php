@@ -12,13 +12,31 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-md-8 offset-md-1">
+        {{-- <div class="col-md-8 offset-md-1">
             <div class="row mt-3">
                 <div class="col-md-8">
                     <input type="email" class="form-control" name="email" id="ltrInput" placeholder="name@example.com" autocorrect="off" spellcheck="false" autocomplete="off" required="">
                 </div>
                 <div class="col-md-2">
                     <button type="submit" onclick="email_checker()" class="btn btn-primary">Check</button>
+                </div>
+            </div>
+
+        </div> --}}
+
+        <div class="col-md-11 offset-md-1">
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <input type="name" class="form-control" name="name" id="nameInput" placeholder="enter name here" autocorrect="off" spellcheck="false" autocomplete="off" required="">
+                </div>
+                <div class="col-md-3">
+                    <input type="phone" class="form-control" name="phone" id="phoneInput" placeholder="enter phone here" autocorrect="off" spellcheck="false" autocomplete="off" required="">
+                </div>
+                <div class="col-md-3">
+                    <input type="address" class="form-control" name="address" id="addressInput" placeholder="enter address here" autocorrect="off" spellcheck="false" autocomplete="off" required="">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" onclick="sendEmail()" class="btn btn-primary">Send</button>
                 </div>
             </div>
 
@@ -37,39 +55,70 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        function email_checker(){
+        // function email_checker(){
             
-            var email = $("#ltrInput").val();
+        //     var email = $("#ltrInput").val();
+
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+
+        //     var emailRegex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+
+            
+
+        //     if(emailRegex.test(email) == false){
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Oops...',
+        //             text: 'Something went wrong!'
+        //         })
+        //     }else{
+        //         $.ajax({
+        //             type: "GET",
+        //             url: "",
+        //             data: {
+        //                 email:email
+        //             },
+        //             success: function (response) {
+        //                 console.log(response);
+                        
+        //             }
+        //         });
+        //     }
+
+
+
+        // }
+
+        function sendEmail(){
+            
+            var name = $("#nameInput").val();
+            var phone = $("#phoneInput").val();
+            var address = $("#addressInput").val();
 
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            var emailRegex = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
-
             
 
-            if(emailRegex.test(email) == false){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
-            }else{
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('customer_email_checker')}}",
-                    data: {
-                        email:email
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        
-                    }
-                });
-            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('send.mail')}}",
+                data: {
+                    name:name,
+                    phone:phone,
+                    address:address
+                },
+                success: function (response) {
+                    console.log(response);
+                    
+                }
+            });
 
 
 

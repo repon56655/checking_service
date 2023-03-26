@@ -18,4 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/index',[CheckingController::class,'index'])->name("index");
-Route::get('/customer_email_checker',[CheckingController::class,'customer_email_checker'])->name("customer_email_checker");
+Route::get('/send/mail',[CheckingController::class,'send_mail'])->name("send.mail");
